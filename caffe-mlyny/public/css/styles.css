@@ -116,7 +116,7 @@
       color: white;
   }
 
-.btn-black {
+  .btn-black {
     background-color: black;
     color: white;
     width: 90%;
@@ -164,6 +164,19 @@
   height: 15em;
   object-fit: cover;
   border-radius: 8px;
+}
+
+.btn-black:hover {
+    color: white;
+    background-color: #333;
+}
+
+.btn-product{
+  width: 90%;
+}
+
+.product-item{
+  height: 38em;
 }
 
   
