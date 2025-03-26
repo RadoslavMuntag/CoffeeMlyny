@@ -209,5 +209,23 @@
   color: white;
 }
 
+.cart-img {
+  height: 9em;
+  width: 10em;
+  border-radius: 0px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
 
-  
+.btn-checkout{
+  width: 100%;
+}
+
+.amount-sm-btn{
+  max-width: 140px;
+  min-width: 120px;
+}
+
+.bi-trash:hover{
+  color:rgb(162, 31, 31)
+}
