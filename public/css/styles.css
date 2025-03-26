@@ -188,5 +188,26 @@
   height: 38em;
 }
 
+.pagination .page-item .page-link {
+  color: black;              
+  background-color: white;
+}
+
+.pagination .page-item.active .page-link {
+  border-color: #181818;
+  color: white;              
+  background-color: #181818;
+}
+
+.pagination .page-item.disabled .page-link {
+  background-color: #e9ecef;
+  color: #6C757D;
+}
+
+.pagination .page-item .page-link:hover {
+  background-color: #6C757D; 
+  color: white;
+}
+
 
   
