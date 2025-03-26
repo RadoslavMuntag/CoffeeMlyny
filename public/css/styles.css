@@ -229,3 +229,8 @@
 .bi-trash:hover{
   color:rgb(162, 31, 31)
 }
+
+.checkout-img{
+  height: 5em;
+  width: 6em;
+}
