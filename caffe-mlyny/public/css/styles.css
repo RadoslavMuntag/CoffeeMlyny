@@ -1,125 +1,130 @@
 
-  
-    
-  * {
-    font-family: 'Montserrat', sans-serif;
-  }
-  
-  .logo
-  {
-    font-size: xx-large;
-  }
-  .search_bar{
-    border-radius: 11px 11px;
-  }
-
-  .nav-item{
-    font-size: large;
-  }
-
-  .carousel {
-    margin-bottom: 4rem;
-  }
-  .carousel-caption {
-    left: 10%;
-    right: 10%;
-    bottom: 3rem;
-    z-index: 10;
-  }
-  .carousel-item {
-    height: 88vh;
-  }
-  .carousel-img-top{
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover;
-    object-position: right
-  }
-  @media (max-width: 992px)
-  {
-    .carousel-item::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Dark tint */
-    }
-  }
-  
-  
-  @media (min-width: 40em) {
-    .carousel-caption p {
-      margin-bottom: 1.25rem;
-      font-size: 1.25rem;
-      line-height: 1.4;
-    }
-  
-    .featurette-heading {
-      font-size: 50px;
-    }
-  }
-  
-  @media (min-width: 62em) {
-    .featurette-heading {
-      margin-top: 7rem;
-    }
-  }
-
-  .container {
-    max-width: 80%;
-  }
-
-  .card-img{
-    width: 100%; 
-    height: 325px; 
-    object-fit: cover;
-  }
 
   
-  .icon-link > .bi {
-    width: .75em;
-    height: .75em;
-  }
-  
+* {
+  font-family: 'Montserrat', sans-serif;
+}
 
-  .footer {
-    background-color: #181818;
-    color: #fff;
+.logo
+{
+  font-size: xx-large;
+}
+
+.top-offer{
+  background-color: #181818;
+}
+
+.search_bar{
+  border-radius: 11px 11px;
+}
+
+.nav-item{
+  font-size: large;
+}
+
+.carousel {
+  margin-bottom: 4rem;
+}
+.carousel-caption {
+  left: 10%;
+  right: 10%;
+  bottom: 3rem;
+  z-index: 10;
+}
+.carousel-item {
+  height: 88vh;
+}
+.carousel-img-top{
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover;
+  object-position: right
+}
+@media (max-width: 992px)
+{
+  .carousel-item::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Dark tint */
   }
-  .footer p{
-    color: #ccc
-  }
-  .footer a {
-      color: #ccc;
-      text-decoration: none;
-  }
-  .footer a:hover {
-      color: #fff;
-  }
-  .footer input {
-      background-color: #222;
-      border: none;
-      color: white;
+}
+
+
+@media (min-width: 40em) {
+  .carousel-caption p {
+    margin-bottom: 1.25rem;
+    font-size: 1.25rem;
+    line-height: 1.4;
   }
 
-  .footer input::placeholder{
+  .featurette-heading {
+    font-size: 50px;
+  }
+}
+
+@media (min-width: 62em) {
+  .featurette-heading {
+    margin-top: 7rem;
+  }
+}
+
+.container {
+  max-width: 80%;
+}
+
+.card-img{
+  width: 100%; 
+  height: 325px; 
+  object-fit: cover;
+}
+
+
+.icon-link > .bi {
+  width: .75em;
+  height: .75em;
+}
+
+
+.footer {
+  background-color: #181818;
+  color: #fff;
+}
+.footer p{
+  color: #ccc
+}
+.footer a {
     color: #ccc;
-  }
-  .footer .social-icons a {
-      color: #ccc;
-      margin-right: 15px;
-      font-size: 20px;
-  }
-  .footer .social-icons a:hover {
-      color: white;
-  }
-
-  .btn-black {
-    background-color: black;
+    text-decoration: none;
+}
+.footer a:hover {
+    color: #fff;
+}
+.footer input {
+    background-color: #222;
+    border: none;
     color: white;
-    width: 90%;
+}
+
+.footer input::placeholder{
+  color: #ccc;
+}
+.footer .social-icons a {
+    color: #ccc;
+    margin-right: 15px;
+    font-size: 20px;
+}
+.footer .social-icons a:hover {
+    color: white;
+}
+
+.btn-black {
+  background-color: #181818;
+  color: white;
+  width: 90%;
 }
 .btn-black:hover {
     color: white;
@@ -161,7 +166,7 @@
   background: rgba(0, 0, 0, 0.6);
 }
 .card-img {
-  height: 15em;
+  height: 16em;
   object-fit: cover;
   border-radius: 8px;
 }
@@ -175,8 +180,13 @@
   width: 90%;
 }
 
+.amount-btn{
+  min-width: 140px;
+}
+
 .product-item{
   height: 38em;
 }
+
 
   

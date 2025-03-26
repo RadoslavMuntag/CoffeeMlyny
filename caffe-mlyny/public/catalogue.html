@@ -31,7 +31,7 @@
                 <div class="collapse navbar-collapse justify-content-between" id="navbarContent">
                     <!-- Left Navigation Links -->
                     <ul class="navbar-nav me-auto">
-                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Catalougue</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">About</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
@@ -63,108 +63,103 @@
     </header>
 
 
-    <main>
-        <section class="container py-5">
-            <div class="row g-5">
-                <!-- Product Image & Thumbnails -->
-                <div class="col-lg-6">
-                    <div >
-                        <img src="assets/products/blends/espresso_dark_250.jpg" class="card-img-top object-fit-cover product-item rounded-1" alt="Thumbnail">
-                    </div>
-                </div>
-        
-                <!-- Product Details -->
-                <div class="col-lg-6">
-                    <h2>Espresso Medium</h2>
-                    <p>⭐⭐⭐⭐⭐ (42 reviews)</p>
-                    <h4>€24.99</h4>
-        
-        
-                    <!-- Select Size -->
-                    <h6 class="mt-3">Select Size</h6>
-                    <div class="mt-4 d-flex justify-content-between align-items-center gap-3" role="group">
-                        <button class="btn btn-product btn-outline-secondary active">250 g</button>
-                        <button class="btn btn-product btn-outline-secondary">500 g</button>
-                    </div>
-        
-                    <!-- Quantity and Add to Cart -->
-                    <div class="mt-4 d-flex justify-content-between align-items-center gap-3">
-                        <div class="d-flex align-items-center border rounded overflow-hidden amount-btn">
-                            <button class="btn btn-outline-secondary border-0 px-3" type="button" id="decrease">−</button>
-                            <input type="text" class="form-control text-center border-0" value="1" >
-                            <button class="btn btn-outline-secondary border-0 px-3" type="button" id="increase">+</button>
+    <section class="album bg-body-tertiary py-5">
+        <div class="container">
+            <div class="row">
+                <!-- Sidebar Filters -->
+                <aside class="col-md-3">
+                    <h5>Filters</h5>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Roast Level</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="lightRoast">
+                            <label class="form-check-label" for="lightRoast">Light Roast</label>
                         </div>
-                        <button class="btn btn-black">Add to Cart</button>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="mediumRoast">
+                            <label class="form-check-label" for="mediumRoast">Medium Roast</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="darkRoast">
+                            <label class="form-check-label" for="darkRoast">Dark Roast</label>
+                        </div>
                     </div>
         
-                    <!-- Product Description -->
-                    <p class="mt-5 text-muted">
-                        Experience the bright, complex flavors of our Ethiopian Yirgacheffe. This light-medium roast features delicate floral notes, bright citrus, and a honey-sweet finish.
-                    </p>
-                    
-                    <!-- Icons Section -->
-                    <div class="d-flex border-top border-light-subtle pt-2 mt-5">
-                        <p class="me-3"><i class="bi bi-truck"></i> Free Shipping</p>
-                        <p class="me-3"><i class="bi bi-arrow-counterclockwise"></i> 30-Day Returns</p>
-                        <p><i class="fbi bi-shield"></i> Secure Checkout</p>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Origin</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="ethiopia">
+                            <label class="form-check-label" for="ethiopia">Ethiopia</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="colombia">
+                            <label class="form-check-label" for="colombia">Colombia</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="brazil">
+                            <label class="form-check-label" for="brazil">Brazil</label>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </section>
         
-        <section class="album bg-body-tertiary py-5 ">
-            <div class="container">
-                <h2 class="text-right mb-4">You May Also Like</h2>
-                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
-                    <div class="col">
-                        <div class="card border-light p-3">
-                            <img src="assets/products/single-origin/guatemala_dark_500.jpg" class="card-img" alt="Product Thumbnail">
-                            <h5 class="mt-3">Guatemala Dark</h5>
-                            <p class="text-muted">From The Volcanic Soil</p>
-                            <div class="d-flex justify-content-between align-items-center mt-0 gap-3">
-                                <h5 class="m-0">€18.99</h5>
-                                <button class="btn btn-black">Add to Cart</button>
+                    <div class="mb-3">
+                        <label for="priceRange" class="form-label fw-bold">Price Range</label>
+                        <div class="d-flex justify-content-between">
+                            <span>€0</span>
+                            <input type="range" class="form-range-track-bg-primary " id="priceRange" min="0" max="100">
+                            <span>€100</span>
+                        </div>
+                    </div>
+                </aside>
+
+                <main class="col-md-9">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5>Coffee Beans (24)</h5>
+                        <select class="form-select w-auto">
+                            <option>Sort by: Featured</option>
+                            <option>Price: Low to High</option>
+                            <option>Price: High to Low</option>
+                        </select>
+                    </div>                    
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3 g-4">
+                        <div class="col">
+                            <div class="card border-light p-3">
+                                <img src="assets/products/single-origin/guatemala_dark_500.jpg" class="card-img" alt="Product Thumbnail">
+                                <h5 class="mt-3">Guatemala Dark</h5>
+                                <p class="text-muted">From The Volcanic Soil</p>
+                                <div class="d-flex justify-content-between align-items-center mt-0 gap-3">
+                                    <h5 class="m-0">€18.99</h5>
+                                    <button class="btn btn-black">Add to Cart</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="card border-light p-3">
-                            <img src="assets/products/blends/espresso_medium_500.jpg" class="card-img" alt="Product Thumbnail">
-                            <h5 class="mt-3">Espresso Medium</h5>
-                            <p class="text-muted">A Bold Kick</p>
-                            <div class="d-flex justify-content-between align-items-center mt-0 gap-3">
-                                <h5 class="m-0">€18.99</h5>
-                                <button class="btn btn-black">Add to Cart</button>
+                        <div class="col">
+                            <div class="card border-light p-3">
+                                <img src="assets/products/blends/espresso_medium_500.jpg" class="card-img" alt="Product Thumbnail">
+                                <h5 class="mt-3">Espresso Medium</h5>
+                                <p class="text-muted">A Bold Kick</p>
+                                <div class="d-flex justify-content-between align-items-center mt-0 gap-3">
+                                    <h5 class="m-0">€18.99</h5>
+                                    <button class="btn btn-black">Add to Cart</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="card border-light p-3">
-                            <img src="assets/products/limited-edition/yemen_medium_500.jpg" class="card-img" alt="Product Thumbnail">
-                            <h5 class="mt-3">Yemen Medium</h5>
-                            <p class="text-muted">From The Hidden Valleys</p>
-                            <div class="d-flex justify-content-between align-items-center mt-0 gap-3">
-                                <h5 class="m-0">€18.99</h5>
-                                <button class="btn btn-black">Add to Cart</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card border-light p-3">
-                            <img src="assets/products/decaf-specials/swissdecaf_medium_500.jpg" class="card-img" alt="Product Thumbnail">
-                            <h5 class="mt-3">Swiss Decaf</h5>
-                            <p class="text-muted">A Chocolatey Sip</p>
-                            <div class="d-flex justify-content-between align-items-center mt-0 gap-3">
-                                <h5 class="m-0">€18.99</h5>
-                                <button class="btn btn-black">Add to Cart</button>
+                        <div class="col">
+                            <div class="card border-light p-3">
+                                <img src="assets/products/limited-edition/yemen_medium_500.jpg" class="card-img" alt="Product Thumbnail">
+                                <h5 class="mt-3">Yemen Medium</h5>
+                                <p class="text-muted">From The Hidden Valleys</p>
+                                <div class="d-flex justify-content-between align-items-center mt-0 gap-3">
+                                    <h5 class="m-0">€18.99</h5>
+                                    <button class="btn btn-black">Add to Cart</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
-        
+        </div>
+    </section>
+
     <footer class="footer py-5">
         <div class="container ">
             <div class="row">
