@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoffeeMlyny</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body>
+    <header>
+        <div class="top-offer text-white text-center py-1">
+            <h6>Free shipping on orders over €50! Use code: COFFEE25</h6>
+        </div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <!-- Brand Logo -->
+                <a class="navbar-brand logo" href="../index.html">Coffee<b>Mlyny</b></a>
+
+                <!-- Navbar Toggler (for mobile) -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                    aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Navbar Content -->
+                <div class="collapse navbar-collapse justify-content-between" id="navbarContent">
+                    <!-- Left Navigation Links -->
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="catalogue.html">Catalougue</a></li>
+                        <li class="nav-item"><a class="nav-link" href="about-us.html">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact-us.html">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="admin-panel.html">Admin Panel</a></li>
+                    </ul>
+
+                    <!-- Right Section: Search Bar & Icons -->
+                    <ul class="navbar-nav align-items-center">
+                        <!-- Search Form -->
+                        <li class="nav-item">
+                            <form class="input-group">
+                                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-secondary" type="submit">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </form>
+                        </li>
+
+                        <!-- Icons -->
+                        <li class="nav-item ms-lg-3">
+                            <a class="nav-link " href="#"><i class="bi bi-cart3 fs-3"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.html"><i class="bi bi-person fs-2"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container py-5">
+        <div class="card p-4 shadow">
+            <h2 class="mb-3">Admin Dashboard</h2>
+            <p class="text-muted">Manage your store efficiently</p>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card text-white bg-dark mb-3 p-3">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="bi bi-cart"></i> Orders</h5>
+                            <p class="card-text">Manage customer orders.</p>
+                            <a href="#" class="btn btn-light btn-sm">View Orders</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-white bg-dark mb-3 p-3">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="bi bi-box"></i> Products</h5>
+                            <p class="card-text">Manage your products.</p>
+                            <a href="admin-catalogue.html" class="btn btn-light btn-sm">View Products</a>
+                            <a href="admin-add-product.html" class="btn btn-light btn-sm">Add Product</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-white bg-dark mb-3 p-3">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="bi bi-people"></i> Users</h5>
+                            <p class="card-text">Manage registered users.</p>
+                            <a href="#" class="btn btn-light btn-sm">View Users</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+        
+
+    <footer class="footer py-5">
+        <div class="container ">
+            <div class="row">
+                <!-- About Us -->
+                <div class="col-md-3">
+                    <h5>About Us</h5>
+                    <p>Premium coffee roasters since 1995. Dedicated to bringing you the finest coffee beans from around
+                        the world.</p>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="col-md-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="catalogue.html">Shop</a></li>
+                        <li><a href="about-us.html">About</a></li>
+                        <li><a href="contact-us.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div class="col-md-3">
+                    <h5>Contact</h5>
+                    <p>123 Coffee Street<br>Seattle, WA 98101</p>
+                    <p>Tel: (555) 123-4567</p>
+                    <p>Email: info@coffeeshop.com</p>
+                </div>
+
+                <!-- Newsletter -->
+                <div class="col-md-3">
+                    <h5>Newsletter</h5>
+                    <form>
+                        <div class="mb-3">
+                            <input type="email" class="form-control" placeholder="Enter your email">
+                        </div>
+                        <button type="submit" class="btn btn-light w-100">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+
+            <hr class="mt-4 mb-3">
+
+            <div class="d-flex justify-content-between align-items-center">
+                <p class="mb-0">© 2025 CoffeeMlyny. All rights reserved.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
