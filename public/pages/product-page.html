@@ -20,23 +20,23 @@
             <div class="container">
                 <!-- Brand Logo -->
                 <a class="navbar-brand logo" href="../index.html">Coffee<b>Mlyny</b></a>
-        
+
                 <!-- Navbar Toggler (for mobile) -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
                     aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-        
+
                 <!-- Navbar Content -->
                 <div class="collapse navbar-collapse justify-content-between" id="navbarContent">
                     <!-- Left Navigation Links -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="/public/pages/catalogue.html">Catalougue</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="about-us.html">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact-us.html">Contact</a></li>
                     </ul>
-        
+
                     <!-- Right Section: Search Bar & Icons -->
                     <ul class="navbar-nav align-items-center">
                         <!-- Search Form -->
@@ -48,13 +48,13 @@
                                 </button>
                             </form>
                         </li>
-        
+
                         <!-- Icons -->
                         <li class="nav-item ms-lg-3">
-                            <a class="nav-link " href="#"><i class="bi bi-cart3 fs-3"></i></a>
+                            <a class="nav-link " href="cart.html"><i class="bi bi-cart3 fs-3"></i></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/public/pages/login.html"><i class="bi bi-person fs-2"></i></a>
+                            <a class="nav-link" href="login.html"><i class="bi bi-person fs-2"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -68,40 +68,44 @@
             <div class="row g-5">
                 <!-- Product Image & Thumbnails -->
                 <div class="col-lg-6">
-                    <div >
-                        <img src="../assets/products/blends/espresso_dark_250.jpg" class="card-img-top object-fit-cover product-item rounded-1" alt="Thumbnail">
+                    <div>
+                        <img src="../assets/products/blends/espresso_dark_250.jpg"
+                            class="card-img-top object-fit-cover product-item rounded-1" alt="Thumbnail">
                     </div>
                 </div>
-        
+
                 <!-- Product Details -->
                 <div class="col-lg-6">
                     <h2>Espresso Medium</h2>
                     <p>⭐⭐⭐⭐⭐ (42 reviews)</p>
                     <h4>€24.99</h4>
-        
-        
+
+
                     <!-- Select Size -->
                     <h6 class="mt-3">Select Size</h6>
                     <div class="mt-4 d-flex justify-content-between align-items-center gap-3" role="group">
                         <button class="btn btn-product btn-outline-secondary active">250 g</button>
                         <button class="btn btn-product btn-outline-secondary">500 g</button>
                     </div>
-        
+
                     <!-- Quantity and Add to Cart -->
                     <div class="mt-4 d-flex justify-content-between align-items-center gap-3">
                         <div class="d-flex align-items-center border rounded overflow-hidden amount-btn">
-                            <button class="btn btn-outline-secondary rounded-0 border-0 px-3" type="button" id="decrease">−</button>
-                            <input type="text" class="form-control text-center border-0" value="1" >
-                            <button class="btn btn-outline-secondary rounded-0 border-0 px-3" type="button" id="increase">+</button>
+                            <button class="btn btn-outline-secondary rounded-0 border-0 px-3" type="button"
+                                id="decrease">−</button>
+                            <input type="text" class="form-control text-center border-0" value="1">
+                            <button class="btn btn-outline-secondary rounded-0 border-0 px-3" type="button"
+                                id="increase">+</button>
                         </div>
                         <button class="btn btn-black">Add to Cart</button>
                     </div>
-        
+
                     <!-- Product Description -->
                     <p class="mt-5 text-muted">
-                        Experience the bright, complex flavors of our Ethiopian Yirgacheffe. This light-medium roast features delicate floral notes, bright citrus, and a honey-sweet finish.
+                        Experience the bright, complex flavors of our Ethiopian Yirgacheffe. This light-medium roast
+                        features delicate floral notes, bright citrus, and a honey-sweet finish.
                     </p>
-                    
+
                     <!-- Icons Section -->
                     <div class="d-flex border-top border-light-subtle pt-2 mt-5">
                         <p class="me-3"><i class="bi bi-truck"></i> Free Shipping</p>
@@ -111,15 +115,20 @@
                 </div>
             </div>
         </section>
-        
+
         <section class="album bg-body-tertiary py-5 ">
             <div class="container">
                 <h2 class="text-right mb-4">You May Also Like</h2>
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
                     <div class="col">
                         <div class="card border-light p-3">
-                            <img src="../assets/products/single-origin/guatemala_dark_500.jpg" class="card-img" alt="Product Thumbnail">
-                            <h5 class="mt-3">Guatemala Dark</h5>
+                            <a href="product-page.html">
+                                <img src="../assets/products/single-origin/guatemala_dark_500.jpg" class="card-img"
+                                    alt="Product Thumbnail">
+                            </a>
+                            <a class="text-decoration-none text-dark" href="product-page.html">
+                                <h5 class="mt-3">Guatemala Dark</h5>
+                            </a>
                             <p class="text-muted">From The Volcanic Soil</p>
                             <div class="d-flex justify-content-between align-items-center mt-0 gap-3">
                                 <h5 class="m-0">€18.99</h5>
@@ -129,8 +138,13 @@
                     </div>
                     <div class="col">
                         <div class="card border-light p-3">
-                            <img src="../assets/products/blends/espresso_medium_500.jpg" class="card-img" alt="Product Thumbnail">
-                            <h5 class="mt-3">Espresso Medium</h5>
+                            <a href="product-page.html">
+                                <img src="../assets/products/blends/espresso_medium_500.jpg" class="card-img"
+                                    alt="Product Thumbnail">
+                            </a>
+                            <a class="text-decoration-none text-dark" href="product-page.html">
+                                <h5 class="mt-3">Espresso Medium</h5>
+                            </a>
                             <p class="text-muted">A Bold Kick</p>
                             <div class="d-flex justify-content-between align-items-center mt-0 gap-3">
                                 <h5 class="m-0">€18.99</h5>
@@ -140,8 +154,13 @@
                     </div>
                     <div class="col">
                         <div class="card border-light p-3">
-                            <img src="../assets/products/limited-edition/yemen_medium_500.jpg" class="card-img" alt="Product Thumbnail">
-                            <h5 class="mt-3">Yemen Medium</h5>
+                            <a href="product-page.html">
+                                <img src="../assets/products/limited-edition/yemen_medium_500.jpg" class="card-img"
+                                    alt="Product Thumbnail">
+                            </a>
+                            <a class="text-decoration-none text-dark" href="product-page.html">
+                                <h5 class="mt-3">Yemen Medium</h5>
+                            </a>
                             <p class="text-muted">From The Hidden Valleys</p>
                             <div class="d-flex justify-content-between align-items-center mt-0 gap-3">
                                 <h5 class="m-0">€18.99</h5>
@@ -151,8 +170,13 @@
                     </div>
                     <div class="col">
                         <div class="card border-light p-3">
-                            <img src="../assets/products/decaf-specials/swissdecaf_medium_500.jpg" class="card-img" alt="Product Thumbnail">
-                            <h5 class="mt-3">Swiss Decaf</h5>
+                            <a href="product-page.html">
+                                <img src="../assets/products/decaf-specials/swissdecaf_medium_500.jpg" class="card-img"
+                                    alt="Product Thumbnail">
+                            </a>
+                            <a class="text-decoration-none text-dark" href="product-page.html">
+                                <h5 class="mt-3">Swiss Decaf</h5>
+                            </a>
                             <p class="text-muted">A Chocolatey Sip</p>
                             <div class="d-flex justify-content-between align-items-center mt-0 gap-3">
                                 <h5 class="m-0">€18.99</h5>
@@ -164,26 +188,27 @@
             </div>
         </section>
     </main>
-        
+
     <footer class="footer py-5">
         <div class="container ">
             <div class="row">
                 <!-- About Us -->
                 <div class="col-md-3">
                     <h5>About Us</h5>
-                    <p>Premium coffee roasters since 1995. Dedicated to bringing you the finest coffee beans from around the world.</p>
+                    <p>Premium coffee roasters since 1995. Dedicated to bringing you the finest coffee beans from around
+                        the world.</p>
                 </div>
-    
+
                 <!-- Quick Links -->
                 <div class="col-md-3">
                     <h5>Quick Links</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#">Shop</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="catalogue.html">Shop</a></li>
+                        <li><a href="about-us.html">About</a></li>
+                        <li><a href="contact-us.html">Contact</a></li>
                     </ul>
                 </div>
-    
+
                 <!-- Contact -->
                 <div class="col-md-3">
                     <h5>Contact</h5>
@@ -191,7 +216,7 @@
                     <p>Tel: (555) 123-4567</p>
                     <p>Email: info@coffeeshop.com</p>
                 </div>
-    
+
                 <!-- Newsletter -->
                 <div class="col-md-3">
                     <h5>Newsletter</h5>
@@ -203,15 +228,15 @@
                     </form>
                 </div>
             </div>
-    
+
             <hr class="mt-4 mb-3">
-    
+
             <div class="d-flex justify-content-between align-items-center">
                 <p class="mb-0">© 2025 CoffeeMlyny. All rights reserved.</p>
                 <div class="social-icons">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="bi bi-facebook"></i></a>
+                    <a href="#"><i class="bi bi-instagram"></i></a>
+                    <a href="#"><i class="bi bi-twitter"></i></a>
                 </div>
             </div>
         </div>
