@@ -1,25 +1,24 @@
-# Caffe Mlyny - E-shop s kávou
+# CoffeeMlyny - E-shop s kávou
 
-Vitajte v repozitári projektu **Caffe Mlyny**, webovej platformy pre predaj kvalitnej kávy.
+Vitajte v repozitári projektu **CoffeeMlyny**, webovej platformy pre predaj kvalitnej kávy.
 
 ## ✨ Funkcie
 - Prehľadná ponuka káv
 - Možnosť registrácie a prihlásenia
-- Košík a online platby
-- Recenzie a hodnotenia produktov
+- Možnosť filtrovat produkty
 
 ## 💪 Použité technológie
-- **Frontend**: [to be added..]
-- **Backend**: [to be added..]
+- **Frontend**: HTML5, CSS
+- **Backend**: PHP
 - **Databáza**: PostgreSQL
-- **Ťažiská knižnice**: Bootstrap
+- **Knižnice**: Bootstrap, Laravel
 
 ## 🌐 Inštalácia a spustenie
 
 1. Klonovanie repozitára:
    ```bash
-   git clone https://github.com/tvoj-username/caffe-mlyny.git
-   cd caffe-mlyny
+   git clone https://github.com/RadoslavMuntag/CoffeeMlyny.git
+   cd CoffeeMlyny
    ```
 ---
-**Caffe Mlyny ☕ - Každý doušok s vášňou!**
+**CoffeeMlyny ☕ - Každý doušok s vášňou!**
