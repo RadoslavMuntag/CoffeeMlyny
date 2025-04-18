@@ -5,13 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class CartItem extends Model
 {
+    /** @use HasFactory<\Database\Factories\CartItemFactory> */
     use HasFactory;
-
-
-    public function images()
-    {
-        return $this->hasMany(ProductImage::class);
-    }
 }

@@ -2,54 +2,84 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Product;
+use App\Models\ProductCategory;
+use App\Models\ProductImage;
 
 class ProductSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-public function run()
-{
-    Product::insert([
-        [
-            'name' => 'Guatemala Dark',
-            'description' => 'From The Volcanic Soil',
-            'price' => 18.99,
-            'category' => 'Single Origin',
-            'image' => 'assets/products/single-origin/guatemala_dark_500.jpg',
-            'created_at' => now(),
-            'updated_at' => now()
-        ],
-        [
-            'name' => 'Espresso Medium',
-            'description' => 'A Bold Kick',
-            'price' => 18.99,
-            'category' => 'Blends',
-            'image' => 'assets/products/blends/espresso_medium_500.jpg',
-            'created_at' => now(),
-            'updated_at' => now()
-        ],
-        [
-            'name' => 'Yemen Medium',
-            'description' => 'From The Hidden Valleys',
-            'price' => 18.99,
-            'category' => 'Limited Edition',
-            'image' => 'assets/products/limited-edition/yemen_medium_500.jpg',
-            'created_at' => now(),
-            'updated_at' => now()
-        ],
-        [
-            'name' => 'Swiss Decaf',
-            'description' => 'A Chocolatey Sip',
-            'price' => 18.99,
-            'category' => 'Specials & Decaf',
-            'image' => 'assets/products/decaf-specials/swissdecaf_medium_500.jpg',
-            'created_at' => now(),
-            'updated_at' => now()
-        ],
-    ]);
-}
+    public function run()
+    {
+        $products = [
+            [
+                'name' => 'Guatemala',
+                'variant' => 'Dark',
+                'description' => 'From The Volcanic Soil',
+                'price' => 18.99,
+                'weight' => 250,
+                'stock' => 100,
+                'category' => 'Single Origin',
+                'images' => [
+                    'assets/products/single-origin/guatemala_dark_250.jpg'
+                ]
+            ],
+            [
+                'name' => 'Espresso',
+                'variant' => 'Medium',
+                'description' => 'A Bold Kick',
+                'price' => 19.99,
+                'weight' => 250,
+                'stock' => 150,
+                'category' => 'Blends',
+                'images' => [
+                    'assets/products/blends/espresso_medium_250.jpg'
+                ]
+            ],
+            [
+                'name' => 'Guatemala',
+                'variant' => 'Dark',
+                'description' => 'From The Volcanic Soil',
+                'price' => 18.99,
+                'weight' => 500,
+                'stock' => 100,
+                'category' => 'Single Origin',
+                'images' => [
+                    'assets/products/single-origin/guatemala_dark_500.jpg'
+                ]
+            ],
+            [
+                'name' => 'Espresso',
+                'variant' => 'Medium',
+                'description' => 'A Bold Kick',
+                'price' => 19.99,
+                'weight' => 500,
+                'stock' => 150,
+                'category' => 'Blends',
+                'images' => [
+                    'assets/products/blends/espresso_medium_500.jpg'
+                ]
+            ],
+        ];
+
+        foreach ($products as $data) {
+            $category = ProductCategory::where('name', $data['category'])->first();
+            $product = Product::create([
+                'name' => $data['name'],
+                'variant' => $data['variant'],
+                'description' => $data['description'],
+                'price' => $data['price'],
+                'weight' => $data['weight'],
+                'stock' => $data['stock'],
+                'product_category_id' => $category->id,
+            ]);
+
+            foreach ($data['images'] as $image) {
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'image_path' => $image,
+                ]);
+            }
+        }
+    }
 }
