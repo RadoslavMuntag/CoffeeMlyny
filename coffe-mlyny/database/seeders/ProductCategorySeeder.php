@@ -10,7 +10,7 @@ class ProductCategorySeeder extends Seeder
 {
     public function run()
     {
-        $categories = ['Single Origin', 'Blends', 'Limited Edition', 'Specials & Decaf'];
+        $categories = ['Blends', 'Decaf Specials', 'Limited Edition', 'Single Origin'];
 
         foreach ($categories as $name) {
             ProductCategory::create(['name' => $name]);

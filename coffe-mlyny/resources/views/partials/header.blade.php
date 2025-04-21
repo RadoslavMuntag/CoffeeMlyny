@@ -18,9 +18,9 @@
                     <!-- Left Navigation Links -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item"><a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="{{ url('/') }}">Home</a></li>
-                        <li class="nav-item"><a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="{{ url('/catalogue') }}">Catalogue</a></li>
-                        <li class="nav-item"><a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="{{ url('/about') }}">About</a></li>
-                        <li class="nav-item"><a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="{{ url('/contact') }}">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link {{ request()->is('catalogue') ? 'active' : '' }}" href="{{ url('/catalogue') }}">Catalogue</a></li>
+                        <li class="nav-item"><a class="nav-link {{ request()->is('about') ? 'active' : '' }}" href="{{ url('/about') }}">About</a></li>
+                        <li class="nav-item"><a class="nav-link {{ request()->is('contact') ? 'active' : '' }}" href="{{ url('/contact') }}">Contact</a></li>
                     </ul>
         
                     <!-- Right Section: Search Bar & Icons -->
@@ -37,10 +37,10 @@
         
                         <!-- Icons -->
                         <li class="nav-item ms-lg-3">
-                            <a class="nav-link " href="pages/cart.html"><i class="bi bi-cart3 fs-3"></i></a>
+                            <a class="nav-link " href="{{ url('/cart') }}"><i class="bi bi-cart3 fs-3"></i></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="pages/login.html"><i class="bi bi-person fs-2"></i></a>
+                            <a class="nav-link" href="{{ url('/login') }}"><i class="bi bi-person fs-2"></i></a>
                         </li>
                     </ul>
                 </div>
