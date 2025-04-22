@@ -26,22 +26,40 @@
                     </form>
                 </div>
 
+                @if(request('search'))
+                <p class="text-muted mb-4">Results for "{{ request('search') }}"</p>
+                @endif
+                @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show my-4" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+                @if (session('error'))
+                <div class="alert alert-danger alert-dismissible fade show my-4" role="alert">
+                    {{ session('error') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
 
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3 g-4">
                     @foreach($products as $product)
                     <div class="col">
                         <div class="card border-light p-3">
-                            <a href="#">
+                            <a href="{{ route('product.show', $product->slug) }}">
                                 <img src="{{ asset('storage/' . ($product->images->first()->image_path)) }}" class="card-img" alt="Product Thumbnail">
                             </a>
-                            <a class="text-decoration-none text-dark" href="#">
-                                <h5 class="mt-3">{{ $product->name }}</h5>
+                            <a class="text-decoration-none text-dark" href="{{ route('product.show', $product->slug) }}">
+                                <h5 class="mt-3">{{ $product->name . " " . $product->variant }}</h5>
+                                <p>{{ $product->weight . "g" }}</p>
                             </a>
                             <p class="text-muted">{{ $product->description }}</p>
-                            <div class="d-flex justify-content-between align-items-center mt-0 gap-3">
+                            <form method="POST" action="{{ route('cart.add', $product->id) }}" class="d-flex justify-content-between align-items-center mt-0 gap-3">
+                                @csrf
                                 <h5 class="m-0">€{{ number_format($product->price, 2) }}</h5>
+                                <input type="hidden" name="quantity" value="1" min="1" max="{{ $product->stock }}" step="1" class="form-control quantity-input" style="width: 60px;">
                                 <button class="btn btn-black">Add to Cart</button>
-                            </div>
+                            </form>
                         </div>
                     </div>
                     @endforeach
