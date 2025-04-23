@@ -12,27 +12,31 @@
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" name="first_name" placeholder="First Name"
-                                        required>
+                                        value="{{ old('first_name', $first_name ?? '') }}" required>
                                 </div>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" name="last_name" placeholder="Last Name"
-                                        required>
+                                        value="{{ old('last_name', $last_name ?? '') }}" required>
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="email" class="form-control" name="email" placeholder="Email" required>
+                                    <input type="email" class="form-control" name="email" placeholder="Email"
+                                        value="{{ old('email', $email ?? '') }}" required>
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="tel" class="form-control" name="phone" placeholder="Phone" required>
+                                    <input type="tel" class="form-control" name="phone" placeholder="Phone"
+                                        value="{{ old('phone', $phone ?? '') }}" required>
                                 </div>
                                 <div class="col-md-12">
-                                    <input type="text" class="form-control" name="address" placeholder="Address" required>
+                                    <input type="text" class="form-control" name="address" placeholder="Address"
+                                        value="{{ old('address', $address ?? '') }}" required>
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" name="city" placeholder="City" required>
+                                    <input type="text" class="form-control" name="city" placeholder="City"
+                                        value="{{ old('city', $city ?? '') }}" required>
                                 </div>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" name="postal_code" placeholder="Postal Code"
-                                        required>
+                                        value="{{ old('postal_code', $postal_code ?? '') }}" required>
                                 </div>
                             </div>
                         </div>
@@ -49,19 +53,30 @@
                                 </div>
                             @endforeach
                         </div>
-                        <div class="p-4 border rounded mb-4">
-                            <h5 class="mb-3">Shipping Method</h5>
-                            @foreach ($shippingMethods as $method)
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="shipping_method_id"
-                                        id="shipping{{ $method->id }}" value="{{ $method->id }}" required>
-                                    <label class="form-check-label" for="shipping{{ $method->id }}">
-                                        {{ $method->name }} (€{{ number_format($method->price, 2) }})
-                                    </label>
-                                </div>
-                            @endforeach
 
+                        @if (session('success'))
+                            <div class="alert alert-success">{{ session('success') }}</div>
+                        @endif
+
+                        @if (session('error'))
+                            <div class="alert alert-danger">{{ session('error') }}</div>
+                        @endif
+
+                        <div class="p-4 border rounded mb-4">
+                            <div id="shipping-methods">
+                                @foreach ($shippingMethods as $method)
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input" name="shipping_method_id"
+                                            id="shipping{{ $method->id }}" value="{{ $method->id }}" {{ $selectedShippingId == $method->id ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="shipping{{ $method->id }}">
+                                            {{ $method->name }} (€{{ number_format($method->price, 2) }})
+                                        </label>
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
+
+
                     </div>
 
                     <div class="col-lg-4">
@@ -106,4 +121,30 @@
             </form>
         </section>
     </main>
+    <script>
+        document.querySelectorAll('input[name="shipping_method_id"]').forEach(radio => {
+            radio.addEventListener('change', function () {
+                fetch("{{ route('checkout.update') }}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify({
+                        shipping_method_id: this.value
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log("Shipping updated:", data);
+                        location.reload(); 
+                    })
+                    .catch(error => {
+                        console.error("Error updating shipping:", error);
+                    });
+            });
+        });
+    </script>
+
 @endsection

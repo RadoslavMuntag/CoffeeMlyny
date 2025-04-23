@@ -15,20 +15,63 @@ class CheckoutController extends Controller
     public function index()
     {
         $cart = session('cart', []);
+        $user = auth()->user();
 
         if (empty($cart)) {
             return redirect()->route('cart.index')->with('error', 'Your cart is empty.');
         }
 
-        $total = collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']);
         $shipping = 0;
+        $selectedShippingId = session('selected_shipping_id');
+        if ($selectedShippingId) {
+            $selectedShipping = ShippingMethod::find($selectedShippingId);
+            if ($selectedShipping) {
+                $shipping = $selectedShipping->price;
+            }
+        }
+        
+        $total = collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']) + $shipping;
         $tax = $total * 0.11;
 
         $shippingMethods = ShippingMethod::all();
         $paymentMethods = PaymentMethod::all();
 
+
+        if ($user != null && $user->address != null) {
+            $first_name = $user['first_name'];
+            $last_name = $user['last_name'];
+            $email = $user['email'];
+            $phone = $user['phone'];
+            $address = $user['address'];
+            $city = $user['city'];
+            $postal_code = $user['postal_code'];
+
+            return view('checkout', compact(
+                'cart',
+                'total',
+                'tax',
+                'shipping',
+                'shippingMethods',
+                'paymentMethods',
+                'first_name',
+                'last_name',
+                'email',
+                'phone',
+                'address',
+                'city',
+                'postal_code',
+                "selectedShippingId"
+            ));
+        }
+
         return view('checkout', compact(
-            'cart', 'total', 'tax', 'shipping', 'shippingMethods', 'paymentMethods'
+            'cart',
+            'total',
+            'tax',
+            'shipping',
+            'shippingMethods',
+            'paymentMethods',
+            "selectedShippingId"
         ));
     }
 
@@ -100,4 +143,34 @@ class CheckoutController extends Controller
             return back()->with('error', 'Failed to process your order. Try again.')->withInput();
         }
     }
+
+    public function update(Request $request)
+    {
+        $cart = session('cart', []);
+
+        if (empty($cart)) {
+            return response()->json(['error' => 'Cart is empty.'], 400);
+        }
+
+        $request->validate([
+            'shipping_method_id' => 'required|exists:shipping_methods,id',
+        ]);
+
+        $shippingMethod = ShippingMethod::findOrFail($request->shipping_method_id);
+        $shipping = $shippingMethod->price;
+
+        session(['selected_shipping_id' => $shippingMethod->id]);
+
+        $subtotal = collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']);
+        $tax = $subtotal * 0.11;
+        $total = $subtotal + $tax + $shipping;
+
+        return response()->json([
+            'message' => 'Shipping method updated successfully.',
+            'shipping' => number_format($shipping, 2),
+            'tax' => number_format($tax, 2),
+            'total' => number_format($total, 2)
+        ]);
+    }
+
 }

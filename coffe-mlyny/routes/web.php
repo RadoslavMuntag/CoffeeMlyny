@@ -31,3 +31,5 @@ Route::get('/account', [AccountController::class, 'index'])->middleware('auth')-
 Route::put('/account', [AccountController::class, 'update'])->middleware('auth')->name('account.update');
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+Route::post('/checkout/update', [CheckoutController::class, 'update'])->name('checkout.update');
+

@@ -14,22 +14,26 @@ class AccountController extends Controller
 
     public function update(Request $request)
     {
-        $request->validate([
-            'street' => 'nullable|string|max:255',
-            'city' => 'nullable|string|max:255',
-            'postal' => 'nullable|string|max:255',
-            'country' => 'nullable|string|max:255',
+        $validated = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:20',
+            'address' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+            'postal_code' => 'required|string|max:20',
         ]);
 
-        $address = implode('|', [
-            $request->input('street'),
-            $request->input('city'),
-            $request->input('postal'),
-            $request->input('country'),
-        ]);
+        
 
         $user = auth()->user();
-        $user->address = $address;
+        $user->first_name = $validated['first_name'];
+        $user->last_name = $validated['last_name'];
+        $user->email = $validated['email'];
+        $user->phone = $validated['phone'];
+        $user->address = $validated['address'];
+        $user->city = $validated['city'];
+        $user->postal_code = $validated['postal_code'];
         $user->save();
 
         return redirect()->route('account')->with('success', 'Address updated.');
