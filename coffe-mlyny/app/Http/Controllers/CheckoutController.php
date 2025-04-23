@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\CartItem;
 use App\Models\ShippingMethod;
 use App\Models\PaymentMethod;
 use Illuminate\Http\Request;
@@ -29,9 +30,10 @@ class CheckoutController extends Controller
                 $shipping = $selectedShipping->price;
             }
         }
-        
-        $total = collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']) + $shipping;
+
+        $total = collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']);
         $tax = $total * 0.11;
+        $total = $tax + $total + $shipping;
 
         $shippingMethods = ShippingMethod::all();
         $paymentMethods = PaymentMethod::all();
@@ -77,6 +79,8 @@ class CheckoutController extends Controller
 
     public function store(Request $request)
     {
+        $user = auth()->user();
+        $user_id = $user != null ? $user->id : null;
         $cart = Session::get('cart', []);
 
         if (empty($cart)) {
@@ -106,7 +110,7 @@ class CheckoutController extends Controller
             $total = $subtotal + $shipping + $tax;
 
             $order = Order::create([
-                'user_id' => null,
+                'user_id' => $user_id,
                 'coupon_id' => null,
                 'status' => 'pending',
                 'first_name' => $validated['first_name'],
@@ -134,9 +138,19 @@ class CheckoutController extends Controller
             }
 
             Session::forget('cart');
+            if ($user != null) {
+                try {
+                    CartItem::where('user_id', $user->id)
+                        ->delete();
+
+                    DB::commit();
+                } catch (\Exception $e) {
+                    DB::rollBack();
+                }
+            }
             DB::commit();
 
-            return redirect()->route('checkout.index')->with('success', 'Order placed successfully.');
+            return redirect()->route('home')->with('success', 'Order number: ' . $order->id . ' placed successfully.');
 
         } catch (\Exception $e) {
             DB::rollBack();

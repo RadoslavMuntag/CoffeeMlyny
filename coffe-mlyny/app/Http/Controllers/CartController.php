@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CartItem;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
+
 
 class CartController extends Controller
 {
@@ -25,6 +28,7 @@ class CartController extends Controller
 
     public function add(Request $request, $id)
     {
+        $user = auth()->user();
         $product = Product::with('images')->findOrFail($id);
 
         $cart = session()->get('cart', []);
@@ -54,7 +58,27 @@ class CartController extends Controller
                 'image' => $product->images->first()->image_path ?? null,
                 'stock' => $product->stock,
             ];
+
         }
+
+        if ($user != null) {
+            try {
+                CartItem::updateOrCreate(
+                    [
+                        'user_id' => $user->id,
+                        'product_id' => $product->id
+                    ],
+                    [
+                        'quantity' => $cart[$id]['quantity'],
+                    ]
+                );
+
+                DB::commit();
+            } catch (\Exception $e) {
+                DB::rollBack();
+            }
+        }
+
 
         session()->put('cart', $cart);
         return back()->with('success', 'Product added to cart!');
@@ -63,30 +87,62 @@ class CartController extends Controller
     public function update(Request $request, $id)
     {
         $cart = session()->get('cart', []);
-    
+        $user = auth()->user();
+
         if (!isset($cart[$id])) {
             return redirect()->route('cart.index')->with('error', 'Product not found in cart.');
         }
-    
+
         $newQuantity = (int) $request->quantity;
-    
+
         if ($newQuantity < 1 || $newQuantity > $cart[$id]['stock']) {
             return redirect()->route('cart.index')->with('error', 'Invalid quantity. Quantity must be between 1 and ' . $cart[$id]['stock']);
         }
-    
+
         $cart[$id]['quantity'] = $newQuantity;
         session()->put('cart', $cart);
-    
+
+
+        if ($user != null) {
+            try {
+                CartItem::updateOrCreate(
+                    [
+                        'user_id' => $user->id,
+                        'product_id' => $id
+                    ],
+                    [
+                        'quantity' => $newQuantity,
+                    ]
+                );
+                DB::commit();
+            } catch (\Exception $e) {
+                DB::rollBack();
+            }
+        }
+
         return redirect()->route('cart.index')->with('success', 'Cart updated.');
     }
-    
+
 
 
     public function remove($id)
     {
+        $user = auth()->user();
         $cart = session()->get('cart', []);
         unset($cart[$id]);
         session()->put('cart', $cart);
+
+        if ($user != null) {
+            try {
+                CartItem::where('user_id', $user->id)
+                    ->where('product_id', $id)
+                    ->delete();
+
+                DB::commit();
+            } catch (\Exception $e) {
+                DB::rollBack();
+            }
+        }
 
         return redirect()->route('cart.index')->with('success', 'Item removed from cart.');
     }

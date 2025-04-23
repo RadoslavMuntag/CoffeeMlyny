@@ -10,7 +10,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AccountController;
 
-Route::get('/', [LandingController::class, 'index']);
+Route::get('/', [LandingController::class, 'index'])->name('home');
 Route::get('/catalogue', [ProductController::class, 'index'])->name('catalogue');
 Route::view('/about', 'about');
 Route::view('/contact', 'contact');

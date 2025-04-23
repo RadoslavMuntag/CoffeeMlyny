@@ -3,7 +3,7 @@
 @section('content')
     <main>
         <section class="container">
-            <form method="POST" action="{{ route('checkout.store') }}">
+            <form method="POST" id="checkout-form" action="{{ route('checkout.store') }}">
                 @csrf
                 <div class="row py-5">
                     <div class="col-lg-8">
@@ -46,7 +46,7 @@
                             @foreach ($paymentMethods as $method)
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="payment_method_id"
-                                        id="payment{{ $method->id }}" value="{{ $method->id }}" required>
+                                        id="payment{{ $method->id }}" value="{{ $method->id }}" {{ old('payment_method_id') == $method->id ? 'checked' : '' }} required>
                                     <label class="form-check-label" for="payment{{ $method->id }}">
                                         {{ $method->name }}
                                     </label>
@@ -54,13 +54,6 @@
                             @endforeach
                         </div>
 
-                        @if (session('success'))
-                            <div class="alert alert-success">{{ session('success') }}</div>
-                        @endif
-
-                        @if (session('error'))
-                            <div class="alert alert-danger">{{ session('error') }}</div>
-                        @endif
 
                         <div class="p-4 border rounded mb-4">
                             <div id="shipping-methods">
@@ -114,11 +107,33 @@
                                 <strong>€{{ number_format($total, 2) }}</strong>
                             </div>
                             <input type="text" class="form-control my-3" placeholder="Promo Code (coming soon 🔒)" disabled>
-                            <button class="btn btn-dark w-100 mt-4">Place Order</button>
+                            <button type="button" class="btn btn-dark w-100 mt-4" onclick="handlePlaceOrderClick()">
+                                Place Order
+                            </button>
                         </div>
                     </div>
                 </div>
             </form>
+
+            <!-- Pay Confirmation Modal -->
+            <div class="modal fade" id="payModal" tabindex="-1" aria-labelledby="payModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="payModalLabel">Confirm Payment</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            You're about to place your order. Do you want to continue?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-dark" form="checkout-form">Pay</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </section>
     </main>
     <script>
@@ -138,13 +153,30 @@
                     .then(response => response.json())
                     .then(data => {
                         console.log("Shipping updated:", data);
-                        location.reload(); 
+                        location.reload();
                     })
                     .catch(error => {
                         console.error("Error updating shipping:", error);
                     });
             });
         });
+
+        function handlePlaceOrderClick() {
+            const selectedPayment = document.querySelector('input[name="payment_method_id"]:checked');
+
+            if (!selectedPayment) {
+                alert("Please select a payment method.");
+                return;
+            }
+            const cardPaymentId = "1";
+
+            if (selectedPayment.value === cardPaymentId) {
+                const payModal = new bootstrap.Modal(document.getElementById('payModal'));
+                payModal.show();
+            } else {
+                document.getElementById('checkout-form').submit();
+            }
+        }
     </script>
 
 @endsection
