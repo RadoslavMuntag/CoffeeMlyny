@@ -7,6 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    /** @use HasFactory<\Database\Factories\OrderFactory> */
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'total',
+        'status',
+        'coupon_id',
+        'address',
+        'payment_method_id',
+        'shipping_method_id',
+        'first_name',
+        'last_name',
+        'email',
+        'phone',
+        'city',
+        'postal_code',
+    ];
 }

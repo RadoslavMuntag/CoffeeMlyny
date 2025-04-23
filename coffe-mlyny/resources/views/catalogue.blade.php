@@ -57,7 +57,7 @@
                             <form method="POST" action="{{ route('cart.add', $product->id) }}" class="d-flex justify-content-between align-items-center mt-0 gap-3">
                                 @csrf
                                 <h5 class="m-0">€{{ number_format($product->price, 2) }}</h5>
-                                <input type="hidden" name="quantity" value="1" min="1" max="{{ $product->stock }}" step="1" class="form-control quantity-input" style="width: 60px;">
+                                <input type="hidden" name="quantity" value="1">
                                 <button class="btn btn-black">Add to Cart</button>
                             </form>
                         </div>

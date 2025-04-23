@@ -80,10 +80,6 @@
                             <p>€{{ number_format($subtotal, 2) }}</p>
                         </div>
                         <div class="d-flex justify-content-between">
-                            <p>Shipping</p>
-                            <p>€{{ number_format($shipping, 2) }}</p>
-                        </div>
-                        <div class="d-flex justify-content-between">
                             <p>Tax</p>
                             <p>€{{ number_format($tax, 2) }}</p>
                         </div>
@@ -93,7 +89,7 @@
                             <p>€{{ number_format($total, 2) }}</p>
                         </div>
                         <div class="d-flex justify-content-center">
-                            <a class="text-decoration-none text-dark w-100" href="{{ route('checkout') }}">
+                            <a class="text-decoration-none text-dark w-100" href="{{ route('checkout.index') }}">
                                 <button class="btn btn-black btn-checkout">Proceed to Checkout</button>
                             </a>
                         </div>
