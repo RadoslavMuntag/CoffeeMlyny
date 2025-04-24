@@ -4,12 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Order;
 
 class AccountController extends Controller
 {
     public function index()
     {
-        return view('account');
+        $user = auth()->user();
+
+        $orders = Order::with(['orderItems.product'])->where('user_id', $user->id)->latest()->get();
+
+        return view('account', compact('user', 'orders'));
     }
 
     public function update(Request $request)
@@ -23,8 +28,6 @@ class AccountController extends Controller
             'city' => 'required|string|max:255',
             'postal_code' => 'required|string|max:20',
         ]);
-
-        
 
         $user = auth()->user();
         $user->first_name = $validated['first_name'];

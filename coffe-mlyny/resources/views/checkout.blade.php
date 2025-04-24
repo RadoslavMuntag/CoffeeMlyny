@@ -137,46 +137,42 @@
         </section>
     </main>
     <script>
-        document.querySelectorAll('input[name="shipping_method_id"]').forEach(radio => {
-            radio.addEventListener('change', function () {
-                fetch("{{ route('checkout.update') }}", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                        "Accept": "application/json"
-                    },
-                    body: JSON.stringify({
-                        shipping_method_id: this.value
-                    })
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log("Shipping updated:", data);
-                        location.reload();
-                    })
-                    .catch(error => {
-                        console.error("Error updating shipping:", error);
-                    });
-            });
+    const shippingRadios = document.querySelectorAll('input[name="shipping_method_id"]');
+    const shippingDisplay = document.querySelectorAll('.d-flex.justify-content-between span.fw-bold')[1]; // Shipping
+    const totalDisplay = document.querySelectorAll('.d-flex.justify-content-between strong')[1]; // Total
+
+    const baseTotalWithoutShipping = {{ $total - $shipping }};
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'EUR'
+    });
+
+    shippingRadios.forEach(radio => {
+        radio.addEventListener('change', function () {
+            const selectedLabel = this.nextElementSibling.textContent;
+            const selectedShippingPrice = parseFloat(selectedLabel.match(/€([\d.,]+)/)[1].replace(',', ''));
+
+            shippingDisplay.textContent = formatter.format(selectedShippingPrice);
+            totalDisplay.textContent = formatter.format(baseTotalWithoutShipping + selectedShippingPrice);
         });
+    });
 
-        function handlePlaceOrderClick() {
-            const selectedPayment = document.querySelector('input[name="payment_method_id"]:checked');
+    function handlePlaceOrderClick() {
+        const selectedPayment = document.querySelector('input[name="payment_method_id"]:checked');
 
-            if (!selectedPayment) {
-                alert("Please select a payment method.");
-                return;
-            }
-            const cardPaymentId = "1";
-
-            if (selectedPayment.value === cardPaymentId) {
-                const payModal = new bootstrap.Modal(document.getElementById('payModal'));
-                payModal.show();
-            } else {
-                document.getElementById('checkout-form').submit();
-            }
+        if (!selectedPayment) {
+            alert("Please select a payment method.");
+            return;
         }
-    </script>
 
+        const cardPaymentId = "1";
+
+        if (selectedPayment.value === cardPaymentId) {
+            const payModal = new bootstrap.Modal(document.getElementById('payModal'));
+            payModal.show();
+        } else {
+            document.getElementById('checkout-form').submit();
+        }
+    }
+</script>
 @endsection

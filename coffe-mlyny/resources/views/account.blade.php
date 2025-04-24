@@ -4,8 +4,13 @@
     <main class="py-5">
         <div class="container">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2>Welcome, {{ auth()->user()->name }}</h2>
-
+            <h2>Welcome, 
+                @if(auth()->user()->first_name)
+                            {{ auth()->user()->first_name ?? '' }} 
+                @else
+                {{ auth()->user()->name }}
+                @endif
+            </h2>
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button type="submit" class="btn btn-danger">Logout</button>
@@ -19,10 +24,14 @@
                         <p><strong>Email:</strong> {{ auth()->user()->email }}</p>
                         <p><strong>Address:</strong>
                             @if(auth()->user()->address)
-                                                    @php
-                                                        $parts = explode('|', auth()->user()->address);
-                                                    @endphp
-                                                    {{ $parts[0] ?? '' }}, {{ $parts[1] ?? '' }}, {{ $parts[2] ?? '' }}, {{ $parts[3] ?? '' }}
+                                {{ auth()->user()->address ?? '' }}, {{ auth()->user()->city ?? '' }}, {{ auth()->user()->postal_code ?? '' }}
+                            @else
+                                Not set yet
+                            @endif
+                        </p>
+                        <p><strong>Details:</strong>
+                            @if(auth()->user()->address)
+                                {{ auth()->user()->first_name ?? '' }} {{ auth()->user()->last_name ?? '' }}, {{ auth()->user()->phone ?? '' }}
                             @else
                                 Not set yet
                             @endif
@@ -68,8 +77,37 @@
 
                 <div class="col-md-6 mb-4">
                     <div class="card p-4 shadow-sm">
-                        <h5>Order History</h5>
-                        <p class="text-muted">No orders yet.</p>
+                    <h5>Order History</h5>
+
+@if($orders->isEmpty())
+    <p class="text-muted">No orders yet.</p>
+@else
+    <ul class="list-group list-group-flush">
+        @foreach($orders as $order)
+            <li class="list-group-item mb-3">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <strong>Order #{{ $order->id }}</strong> <br>
+                        <small>Status: {{ ucfirst($order->status) }}</small> <br>
+                        <small>Placed on: {{ $order->created_at->format('d M Y') }}</small>
+                    </div>
+                    <div>
+                        <strong>Total:</strong> €{{ number_format($order->total, 2) }}
+                    </div>
+                </div>
+                @if($order->orderItems->count())
+                    <ul class="mt-2">
+                        @foreach($order->orderItems as $item)
+                            <li>
+                                {{ $item->product->name ?? 'Deleted Product' }} x{{ $item->quantity }} – €{{ number_format($item->price, 2) }}
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
+            </li>
+        @endforeach
+    </ul>
+@endif
                     </div>
                 </div>
             </div>
