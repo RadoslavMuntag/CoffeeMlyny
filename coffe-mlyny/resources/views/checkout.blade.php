@@ -57,6 +57,7 @@
 
                         <div class="p-4 border rounded mb-4">
                             <div id="shipping-methods">
+                                <h5 class="mb-3">Shipping Method</h5>
                                 @foreach ($shippingMethods as $method)
                                     <div class="form-check">
                                         <input type="radio" class="form-check-input" name="shipping_method_id"
@@ -137,42 +138,42 @@
         </section>
     </main>
     <script>
-    const shippingRadios = document.querySelectorAll('input[name="shipping_method_id"]');
-    const shippingDisplay = document.querySelectorAll('.d-flex.justify-content-between span.fw-bold')[1]; // Shipping
-    const totalDisplay = document.querySelectorAll('.d-flex.justify-content-between strong')[1]; // Total
+        const shippingRadios = document.querySelectorAll('input[name="shipping_method_id"]');
+        const shippingDisplay = document.querySelectorAll('.d-flex.justify-content-between span.fw-bold')[1]; // Shipping
+        const totalDisplay = document.querySelectorAll('.d-flex.justify-content-between strong')[1]; // Total
 
-    const baseTotalWithoutShipping = {{ $total - $shipping }};
-    const formatter = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'EUR'
-    });
-
-    shippingRadios.forEach(radio => {
-        radio.addEventListener('change', function () {
-            const selectedLabel = this.nextElementSibling.textContent;
-            const selectedShippingPrice = parseFloat(selectedLabel.match(/€([\d.,]+)/)[1].replace(',', ''));
-
-            shippingDisplay.textContent = formatter.format(selectedShippingPrice);
-            totalDisplay.textContent = formatter.format(baseTotalWithoutShipping + selectedShippingPrice);
+        const baseTotalWithoutShipping = {{ $total - $shipping }};
+        const formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'EUR'
         });
-    });
 
-    function handlePlaceOrderClick() {
-        const selectedPayment = document.querySelector('input[name="payment_method_id"]:checked');
+        shippingRadios.forEach(radio => {
+            radio.addEventListener('change', function () {
+                const selectedLabel = this.nextElementSibling.textContent;
+                const selectedShippingPrice = parseFloat(selectedLabel.match(/€([\d.,]+)/)[1].replace(',', ''));
 
-        if (!selectedPayment) {
-            alert("Please select a payment method.");
-            return;
+                shippingDisplay.textContent = formatter.format(selectedShippingPrice);
+                totalDisplay.textContent = formatter.format(baseTotalWithoutShipping + selectedShippingPrice);
+            });
+        });
+
+        function handlePlaceOrderClick() {
+            const selectedPayment = document.querySelector('input[name="payment_method_id"]:checked');
+
+            if (!selectedPayment) {
+                alert("Please select a payment method.");
+                return;
+            }
+
+            const cardPaymentId = "1";
+
+            if (selectedPayment.value === cardPaymentId) {
+                const payModal = new bootstrap.Modal(document.getElementById('payModal'));
+                payModal.show();
+            } else {
+                document.getElementById('checkout-form').submit();
+            }
         }
-
-        const cardPaymentId = "1";
-
-        if (selectedPayment.value === cardPaymentId) {
-            const payModal = new bootstrap.Modal(document.getElementById('payModal'));
-            payModal.show();
-        } else {
-            document.getElementById('checkout-form').submit();
-        }
-    }
-</script>
+    </script>
 @endsection
