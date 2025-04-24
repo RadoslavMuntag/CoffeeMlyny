@@ -12,9 +12,9 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center">
                             <a href="{{ route('products.show', ['slug' => $item['slug']]) }}">
-                                <img src="{{ asset('storage/' . $item['image']) }}" class=" card-img" alt="Product Thumbnail" style="width: 125px; height: 125px; object-fit: cover;">
+                                <img src="{{ asset('storage/' . $item['image']) }}" class=" cart-img" alt="Product Thumbnail" style="width: 125px; height: 125px; object-fit: cover;">
                             </a>
-                            <div class="ms-3 my-4">
+                            <div class="ms-3">
                                 <a class="text-decoration-none text-dark" href="{{ route('products.show', ['slug' => $item['slug']]) }}">
                                     <h5>{{ $item['name'] . " " . $item['variant'] }}</h5>
                                     <p class="text-muted">{{ $item['weight'] . "g" }}</p>
@@ -49,7 +49,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-between align-items-center gap-3 px-3">
+                        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3 px-3">
                             <h5 class="m-0">€{{ number_format($item['price'] * $item['quantity'], 2) }}</h5>
                             <form action="{{ route('cart.remove', $id) }}" method="POST">
                                 @csrf
