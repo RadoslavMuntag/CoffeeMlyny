@@ -17,11 +17,11 @@
 
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
 
 @include('partials.header')
 
-<div class="main-content">
+<div class="flex-fill main-content">
     @yield('content')
 </div>
 
