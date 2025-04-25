@@ -7,7 +7,7 @@
                         class="card-img" alt="Product Thumbnail">
                 </a>
                 <a class="text-decoration-none text-dark" href="{{ route('product.show', $product->slug) }}">
-                    <h5 class="mt-3">{{$product->id . $product->name . " " . $product->variant}}</h5>
+                    <h5 class="mt-3">{{$product->name . " " . $product->variant}}</h5>
                     <p>{{ $product->weight . "g" }}</p>
                 </a>
                 <p class="text-muted">{{ $product->description }}</p>

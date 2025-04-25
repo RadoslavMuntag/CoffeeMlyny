@@ -38,6 +38,12 @@
                             g</a>
                     </div>
 
+                    @if ($product->stock <= 0)
+                        <p class="mt-3 text-danger">Out of stock</p>
+                    @else
+                        <p class="mt-3 text-muted">Stock: {{ $product->stock }}</p>
+                    @endif
+
                     <form autocomplete="off" method="POST" action="{{ route('cart.add', ['id' => $product->id]) }}"
                         class="mt-4 d-flex justify-content-between align-items-center gap-3 w-100">
                         @csrf
@@ -47,8 +53,11 @@
                             <input type="number" name="quantity" class="form-control text-center border-0" value="1" min="1"
                                 max="{{ $product->stock }}" step="1" required>
                         </div>
-
-                        <button type="submit" class="btn btn-black">Add to Cart</button>
+                        @if ($product->stock <= 0)
+                            <button type="submit" disabled class="btn btn-black">Add to Cart</button>
+                        @else
+                            <button type="submit" class="btn btn-black">Add to Cart</button>
+                        @endif
                     </form>
 
                     @if (session('success'))

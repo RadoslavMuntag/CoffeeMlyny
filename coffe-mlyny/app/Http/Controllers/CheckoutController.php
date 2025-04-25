@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\CartItem;
+use App\Models\Product;
 use App\Models\ShippingMethod;
 use App\Models\PaymentMethod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class CheckoutController extends Controller
 {
@@ -87,19 +90,30 @@ class CheckoutController extends Controller
             return redirect()->route('cart.index')->with('error', 'Your cart is empty.');
         }
 
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'phone' => 'required|string|max:20',
+            'phone' => ['required', 'regex:/^\+?[0-9\s\-]{7,20}$/'],
             'address' => 'required|string|max:255',
             'city' => 'required|string|max:255',
-            'postal_code' => 'required|string|max:20',
+            'postal_code' => ['required', 'regex:/^[0-9]{3,10}$/'], 
             'shipping_method_id' => 'required|exists:shipping_methods,id',
             'payment_method_id' => 'required|exists:payment_methods,id',
         ]);
 
+        
+        
+        
+        
         try {
+            if ($validator->fails()) {
+                
+                throw new ValidationException($validator);
+            }
+            
+            $validated = $validator->validated();
+
             DB::beginTransaction();
 
             $shippingMethod = ShippingMethod::findOrFail($validated['shipping_method_id']);
@@ -129,14 +143,25 @@ class CheckoutController extends Controller
             ]);
 
             foreach ($cart as $item) {
+                $product = Product::findOrFail($item['id']);
+
+                if ($product->stock < $item['quantity']) {
+                    throw new \Exception("Not enough stock for product: {$product->name}");
+                }
+
                 OrderItem::create([
                     'order_id' => $order->id,
                     'product_id' => $item['id'],
                     'quantity' => $item['quantity'],
                     'price' => $item['price'],
                 ]);
+
+                $product->decrement('stock', $item['quantity']);
+
             }
 
+            
+            
             Session::forget('cart');
             if ($user != null) {
                 try {
@@ -151,10 +176,13 @@ class CheckoutController extends Controller
             DB::commit();
 
             return redirect()->route('home')->with('success', 'Order number: ' . $order->id . ' placed successfully.');
-
-        } catch (\Exception $e) {
+        
+        } catch (ValidationException $e) {
             DB::rollBack();
-            return back()->with('error', 'Failed to process your order. Try again.')->withInput();
+            return back()->with('error', $e->getMessage())->withInput();
+        }catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('cart.index')->with('error', $e->getMessage())->withInput();
         }
     }
 
