@@ -67,7 +67,7 @@
                                 @foreach ($shippingMethods as $method)
                                     <div class="form-check">
                                         <input type="radio" class="form-check-input" name="shipping_method_id"
-                                            id="shipping{{ $method->id }}" value="{{ $method->id }}" {{ $selectedShippingId == $method->id ? 'checked' : '' }}>
+                                            id="shipping{{ $method->id }}" value="{{ $method->id }}" {{ $selectedShippingId == $method->id ? 'checked' : '' }} required>
                                         <label class="form-check-label" for="shipping{{ $method->id }}">
                                             {{ $method->name }} (€{{ number_format($method->price, 2) }})
                                         </label>

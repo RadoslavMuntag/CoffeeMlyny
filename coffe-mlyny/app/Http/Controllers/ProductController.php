@@ -62,7 +62,7 @@ class ProductController extends Controller
         $maxPrice = Product::max('price');
         $categories = ProductCategory::all();
         $origins = Product::distinct()->pluck('name');
-        $variants = ['light', 'medium', 'dark'];
+        $variants = ['Light', 'Medium', 'Dark'];
 
         return view('catalogue', compact('products', 'categories', 'origins', 'variants', 'minPrice', 'maxPrice'));
     }
