@@ -24,9 +24,9 @@
                 </ul>
 
                 <!-- Right Section: Search Bar & Icons -->
-                <ul class="navbar-nav align-items-center">
+                <ul class="navbar-nav flex-row flex-wrap align-items-center gap-2 gap-lg-0">
                     <!-- Search Form -->
-                    <li class="nav-item">
+                    <li class="nav-item px-lg-2">
                         <form class="input-group" action="{{ route('catalogue') }}" method="GET">
                             <input class="form-control" name="search" type="search" placeholder="Search" aria-label="Search" value="{{ request('search') }}">
                             <button class="btn btn-outline-secondary" type="submit">
@@ -36,7 +36,7 @@
                     </li>
 
                     <!-- Icons -->
-                    <li class="nav-item ms-lg-3">
+                    <li class="nav-item">
                         <a class="nav-link " href="{{ url('/cart') }}"><i class="bi bi-cart3 fs-3"></i></a>
                     </li>
                     <li class="nav-item">

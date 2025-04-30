@@ -4,7 +4,7 @@
 
     <main>
         <section class="container py-5">
-            <div class="row g-5">
+            <div class="row">
                 <div class="col-lg-6">
                     <div>
                         <img id="main-image" src="{{ asset('storage/' . $product->images->first()->image_path) }}"
