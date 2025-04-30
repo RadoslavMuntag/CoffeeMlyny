@@ -9,6 +9,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', [LandingController::class, 'index'])->name('home');
 Route::get('/catalogue', [ProductController::class, 'index'])->name('catalogue');
@@ -32,4 +33,8 @@ Route::put('/account', [AccountController::class, 'update'])->middleware('auth')
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 Route::post('/checkout/update', [CheckoutController::class, 'update'])->name('checkout.update');
+Route::middleware(['auth', 'admin'])->group(function () {
+Route::get('/admin', [AdminController::class, 'index']);
+});
+
 

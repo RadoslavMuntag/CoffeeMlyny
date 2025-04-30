@@ -39,8 +39,12 @@ class ProductController extends Controller
         }
 
 
-        if ($request->has('price')) {
-            $products->where('price', '<=', $request->get('price'));
+        if ($request->has('min_price')) {
+            $products->where('price', '>=', $request->get('min_price'));
+        }
+
+        if ($request->has('max_price')) {
+            $products->where('price', '<=', $request->get('max_price'));
         }
 
 

@@ -20,8 +20,8 @@
                 <!-- Contact -->
                 <div class="col-md-3">
                     <h5>Contact</h5>
-                    <p>123 Coffee Street<br>Seattle, WA 98101</p>
-                    <p>Tel: (555) 123-4567</p>
+                    <p>Ilkovičova 2<br>842 16 Karlova Ves</p>
+                    <p>Tel: (+421) 902385556</p>
                     <p>Email: info@coffeeshop.com</p>
                 </div>
     

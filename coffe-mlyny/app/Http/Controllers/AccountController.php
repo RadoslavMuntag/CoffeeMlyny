@@ -32,7 +32,7 @@ class AccountController extends Controller
         $user = auth()->user();
         $user->first_name = $validated['first_name'];
         $user->last_name = $validated['last_name'];
-        $user->email = $validated['email'];
+        $user->shipping_email = $validated['email'];
         $user->phone = $validated['phone'];
         $user->address = $validated['address'];
         $user->city = $validated['city'];
