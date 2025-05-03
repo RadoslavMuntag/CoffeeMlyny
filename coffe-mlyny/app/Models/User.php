@@ -39,6 +39,13 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
+    // app/Models/User.php
+
+    public function isAdmin()
+    {
+        return $this->is_admin;
+    }
+
     protected function casts(): array
     {
         return [

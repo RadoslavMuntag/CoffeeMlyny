@@ -32,4 +32,8 @@ Route::put('/account', [AccountController::class, 'update'])->middleware('auth')
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 Route::post('/checkout/update', [CheckoutController::class, 'update'])->name('checkout.update');
-
+Route::middleware(['auth', 'admin'])->prefix('nasakavanenivasa')->group(function () {
+Route::get('/', function () {
+        return view('admin.dashboard');
+    })->name('admin.dashboard');
+});
