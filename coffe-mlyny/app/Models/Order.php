@@ -14,6 +14,11 @@ class Order extends Model
         return $this->hasMany(OrderItem::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(\App\Models\User::class);
+    }
+
     protected $fillable = [
         'user_id',
         'total',

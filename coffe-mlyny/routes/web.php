@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ContactController;
@@ -9,6 +8,10 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\UserController;
+
 
 Route::get('/', [LandingController::class, 'index'])->name('home');
 Route::get('/catalogue', [ProductController::class, 'index'])->name('catalogue');
@@ -32,8 +35,10 @@ Route::put('/account', [AccountController::class, 'update'])->middleware('auth')
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 Route::post('/checkout/update', [CheckoutController::class, 'update'])->name('checkout.update');
-Route::middleware(['auth', 'admin'])->prefix('nasakavanenivasa')->group(function () {
-Route::get('/', function () {
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', fn () => view('admin.dashboard'))->name('dashboard');
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders');
+    Route::resource('products', AdminProductController::class)->except(['show']);
+    Route::get('/users', [UserController::class, 'index'])->name('users');
+    Route::put('/users/{user}/toggle-role', [UserController::class, 'toggleRole'])->name('users.toggleRole');
 });
