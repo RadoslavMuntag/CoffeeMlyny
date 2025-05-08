@@ -1,3 +1,7 @@
+@php
+    $isAdmin = request()->routeIs('admin.*');
+@endphp
+
 <header>
     <div class="top-offer text-white text-center py-1">
         <h6>Free shipping on orders over €50! Use code: COFFEE25</h6>
@@ -27,7 +31,7 @@
                 <ul class="navbar-nav flex-row flex-wrap align-items-center gap-2 gap-lg-0">
                     <!-- Search Form -->
                     <li class="nav-item px-lg-2">
-                        <form class="input-group" action="{{ route('catalogue') }}" method="GET">
+                        <form method="GET" action="{{ $isAdmin ? route('admin.products.index') : route('catalogue') }}" class="input-group">
                             <input class="form-control" name="search" type="search" placeholder="Search" aria-label="Search" value="{{ request('search') }}">
                             <button class="btn btn-outline-secondary" type="submit">
                                 <i class="bi bi-search"></i>

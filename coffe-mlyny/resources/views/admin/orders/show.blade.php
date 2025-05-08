@@ -3,30 +3,42 @@
 @section('content')
 <main class="container py-5">
     <div class="card p-4 shadow">
-        <h2 class="mb-3">Order #{{ $order->id }} Detail</h2>
-        <p>Status: <strong>{{ ucfirst($order->status) }}</strong></p>
-        <p>User: {{ $order->user->name ?? 'Guest' }} ({{ $order->user->email ?? 'N/A' }})</p>
-        <p>Total: €{{ number_format($order->total, 2) }}</p>
-        <p>Created: {{ $order->created_at->format('d.m.Y H:i') }}</p>
+        <h2 class="mb-3">Order #{{ $order->id }} Details</h2>
 
-        <h4 class="mt-4">Products</h4>
-        <ul>
-            @foreach($order->items as $item)
-                <li>{{ $item->product->name ?? 'Deleted Product' }} ({{ $item->quantity }}x) — €{{ number_format($item->price, 2) }}</li>
-            @endforeach
-        </ul>
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
 
-        <form method="POST" action="{{ route('admin.orders.update', $order->id) }}" class="mt-4">
+        <div class="mb-3">
+            <strong>User:</strong> {{ $order->user->name ?? 'Guest' }}
+        </div>
+        <div class="mb-3">
+            <strong>Status:</strong> {{ ucfirst($order->status) }}
+        </div>
+        <div class="mb-3">
+            <strong>Total (€):</strong> {{ number_format($order->total, 2) }}
+        </div>
+        <div class="mb-3">
+            <strong>Created at:</strong> {{ $order->created_at->format('d.m.Y H:i') }}
+        </div>
+
+        <form method="POST" action="{{ route('admin.orders.updateStatus', $order->id) }}">
             @csrf
             @method('PUT')
-            <label for="status" class="form-label">Change Status</label>
-            <select name="status" id="status" class="form-select w-auto d-inline">
-                <option value="pending" @selected($order->status === 'pending')>Pending</option>
-                <option value="processing" @selected($order->status === 'processing')>Processing</option>
-                <option value="shipped" @selected($order->status === 'shipped')>Shipped</option>
-                <option value="completed" @selected($order->status === 'completed')>Completed</option>
-            </select>
-            <button type="submit" class="btn btn-success ms-2">Update</button>
+
+            <div class="mb-3">
+                <label for="status" class="form-label fw-bold">Update Status</label>
+                <select name="status" id="status" class="form-select" required>
+                    <option value="pending" {{ $order->status === 'pending' ? 'selected' : '' }}>Pending</option>
+                    <option value="processing" {{ $order->status === 'processing' ? 'selected' : '' }}>Processing</option>
+                    <option value="completed" {{ $order->status === 'completed' ? 'selected' : '' }}>Completed</option>
+                    <option value="cancelled" {{ $order->status === 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+                </select>
+            </div>
+
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary">Update Status</button>
+            </div>
         </form>
     </div>
 </main>

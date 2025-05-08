@@ -36,9 +36,14 @@ Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.in
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 Route::post('/checkout/update', [CheckoutController::class, 'update'])->name('checkout.update');
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/', fn () => view('admin.dashboard'))->name('dashboard');
+    Route::get('/', fn() => view('admin.dashboard'))->name('dashboard');
     Route::get('/orders', [OrderController::class, 'index'])->name('orders');
-    Route::resource('products', AdminProductController::class)->except(['show']);
+    Route::get('/admin/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+    Route::put('/admin/orders/{order}', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
+    Route::resource('products', AdminProductController::class);
+    Route::post('/products/{product}/add-stock', [AdminProductController::class, 'updateStock'])->name('products.updateStock');
+    Route::delete('/products/images/{image}', [AdminProductController::class, 'destroyImage'])->name('products.images.destroy');
     Route::get('/users', [UserController::class, 'index'])->name('users');
     Route::put('/users/{user}/toggle-role', [UserController::class, 'toggleRole'])->name('users.toggleRole');
 });
+

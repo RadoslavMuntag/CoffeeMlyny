@@ -1,36 +1,72 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container py-4">
-    <h2>Pridať nový produkt</h2>
+    <main>
+        <section class="container py-5">
+            <form method="POST" action="{{ route('admin.products.store') }}" enctype="multipart/form-data">
+                @csrf
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Product Images</label>
+                            <input type="file" name="images[]" multiple accept="image/*" class="form-control" required>
+                            <small class="text-muted">You can upload multiple images.</small>
+                        </div>
+                    </div>
 
-    <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <div class="mb-3">
-            <label class="form-label">Názov</label>
-            <input type="text" name="name" class="form-control" required>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Variant</label>
-            <input type="text" name="variant" class="form-control">
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Cena (€)</label>
-            <input type="number" step="0.01" name="price" class="form-control" required>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Hmotnosť (g)</label>
-            <input type="number" name="weight" class="form-control">
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Popis</label>
-            <textarea name="description" class="form-control"></textarea>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Obrázok</label>
-            <input type="file" name="image" class="form-control">
-        </div>
-        <button type="submit" class="btn btn-primary">Uložiť</button>
-    </form>
-</div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Name</label>
+                            <input type="text" name="name" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Variant</label>
+                            <select name="variant" class="form-select" required>
+                                <option value="Light">Light</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Dark">Dark</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Description</label>
+                            <textarea name="description" class="form-control" rows="4" required></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Price (€)</label>
+                            <input type="number" name="price" class="form-control" step="0.01" required>
+                        </div>
+
+                        <div class="mb-3">
+                        <label class="form-label fw-bold">Weight</label>
+                            <select name="weight" class="form-select" required>
+                                <option value="250">250</option>
+                                <option value="500">500</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Stock</label>
+                            <input type="number" name="stock" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Product Category</label>
+                            <select name="product_category_id" class="form-select" required>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="d-flex justify-content-end mt-4">
+                            <button type="submit" class="btn btn-black px-4">Add Product</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </main>
 @endsection

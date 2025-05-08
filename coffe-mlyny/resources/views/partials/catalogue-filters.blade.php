@@ -1,6 +1,10 @@
+@php
+    $isAdmin = request()->routeIs('admin.*');
+@endphp
+
 <aside class="col-md-3">
     <h5>Filters</h5>
-    <form method="GET" action="{{ route('catalogue') }}">
+    <form method="GET" action="{{ $isAdmin ? route('admin.products.index') : route('catalogue') }}" class="mb-4">
         <!-- Roast Level -->
         <div class="mb-3">
             <label class="form-label fw-bold">Roast Level</label>

@@ -25,17 +25,20 @@
                     <h4>€{{ number_format($product->price, 2) }}</h4>
 
                     <h6 class="mt-3">Select Size</h6>
-                    <div class="mt-4 d-flex justify-content-between align-items-center gap-3" role="group">
+                    <div class="mt-4 d-flex justify-content-start align-items-center gap-3" role="group">
                         @php
-                            $baseSlug = Str::slug($product->name . '-' . $product->variant);
+                            $relatedProducts = \App\Models\Product::where('name', $product->name)
+                                ->where('variant', $product->variant)
+                                ->orderBy('weight')
+                                ->get();
                         @endphp
 
-                        <a href="{{ route('products.show', ['slug' => $baseSlug . '-250']) }}"
-                            class="btn btn-product btn-outline-secondary {{ Str::endsWith($product->slug, '25000') ? 'active' : '' }}">250
-                            g</a>
-                        <a href="{{ route('products.show', ['slug' => $baseSlug . '-500']) }}"
-                            class="btn btn-product btn-outline-secondary {{ Str::endsWith($product->slug, '50000') ? 'active' : '' }}">500
-                            g</a>
+                        @foreach ($relatedProducts as $variantProduct)
+                            <a href="{{ route('products.show', ['slug' => $variantProduct->slug]) }}"
+                                class="btn btn-product btn-outline-secondary {{ $variantProduct->id === $product->id ? 'active' : '' }}">
+                                {{ $variantProduct->weight }} g
+                            </a>
+                        @endforeach
                     </div>
 
                     @if ($product->stock <= 0)

@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('variant');
             $table->text('description');
             $table->decimal('price', 8, 2);
-            $table->decimal('weight', 8, 2);
+            $table->integer('weight');
             $table->integer('stock');
             $table->foreignId('product_category_id')->constrained()->onDelete('cascade');
             $table->timestamps();

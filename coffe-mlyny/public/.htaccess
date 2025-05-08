@@ -23,3 +23,19 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+
+<IfModule mod_php.c>
+    php_value upload_max_filesize 50M
+    php_value post_max_size 50M
+    php_value max_input_vars 1000
+    php_value max_input_time 60
+    php_value memory_limit 256M
+</IfModule>
+
+<IfModule mod_fcgid.c>
+    FcgidMaxRequestLen 1073741824
+</IfModule>
+
+<IfModule autoindex_module>
+    Options -Indexes
+</IfModule>

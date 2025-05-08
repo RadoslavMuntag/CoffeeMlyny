@@ -16,19 +16,19 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
-        $order->load('items.product', 'user');
         return view('admin.orders.show', compact('order'));
     }
 
-    public function update(Request $request, Order $order)
+    public function updateStatus(Request $request, Order $order)
     {
         $request->validate([
-            'status' => 'required|in:pending,processing,shipped,completed',
+            'status' => 'required|in:pending,processing,completed,cancelled',
         ]);
 
         $order->status = $request->status;
         $order->save();
-
-        return redirect()->route('admin.orders.index')->with('success', 'Order updated.');
+    
+        return redirect()->route('admin.orders')->with('success', 'Order status updated successfully.');
     }
+    
 }
