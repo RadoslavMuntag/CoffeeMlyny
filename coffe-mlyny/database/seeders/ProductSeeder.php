@@ -742,8 +742,9 @@ class ProductSeeder extends Seeder
             ],
         ];
 
-        foreach ($products as $data) {
+        foreach ($products as $index => $data) {
             $category = ProductCategory::where('name', $data['category'])->first();
+        
             $product = Product::create([
                 'name' => $data['name'],
                 'variant' => $data['variant'],
@@ -752,8 +753,9 @@ class ProductSeeder extends Seeder
                 'weight' => $data['weight'],
                 'stock' => $data['stock'],
                 'product_category_id' => $category->id,
+                'featured' => $index < 4,
             ]);
-
+        
             foreach ($data['images'] as $image) {
                 ProductImage::create([
                     'product_id' => $product->id,
