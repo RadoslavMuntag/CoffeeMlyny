@@ -489,8 +489,8 @@ class ProductSeeder extends Seeder
                 'stock' => 100,
                 'category' => 'Limited Edition',
                 'images' => [
-                    'category_specialsproducts/limited-edition/honduras_dark_250.jpg',
-                    'category_specialscategories/category_limited.jpg',
+                    'products/limited-edition/honduras_dark_250.jpg',
+                    'categories/category_limited.jpg',
                 ],
             ],
             [
