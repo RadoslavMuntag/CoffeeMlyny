@@ -3,7 +3,7 @@
 @section('content')
     <main>
         <section class="container py-5">
-            <a href="{{ route('admin.products.index') }}" class="btn btn-dark my-2">
+            <a href="{{ route('admin.dashboard') }}" class="btn btn-dark my-2">
                 Back
             </a>
             <form method="POST" action="{{ route('admin.products.store') }}" enctype="multipart/form-data">
