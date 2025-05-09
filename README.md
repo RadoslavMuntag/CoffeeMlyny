@@ -1,24 +1,51 @@
-# CoffeeMlyny - E-shop s kávou
 
-Vitajte v repozitári projektu **CoffeeMlyny**, webovej platformy pre predaj kvalitnej kávy.
+# CoffeeMlyny – Laravel Setup
 
-## ✨ Funkcie
-- Prehľadná ponuka káv
-- Možnosť registrácie a prihlásenia
-- Možnosť filtrovat produkty
+## 🧩 Požiadavky
 
-## 💪 Použité technológie
-- **Frontend**: HTML5, CSS
-- **Backend**: PHP
-- **Databáza**: PostgreSQL
-- **Knižnice**: Bootstrap, Laravel
+- PHP >= 8.1  
+- Composer  
+- PostgreSQL
+- Laravel >= 12
 
-## 🌐 Inštalácia a spustenie
-
-1. Klonovanie repozitára:
-   ```bash
-   git clone https://github.com/RadoslavMuntag/CoffeeMlyny.git
-   cd CoffeeMlyny
-   ```
 ---
-**CoffeeMlyny ☕ - Každý doušok s vášňou!**
+
+## ⚙️ Inštalácia projektu
+
+```bash
+git clone git@github.com:RadoslavMuntag/CoffeeMlyny.git
+cd CoffeeMlyny/coffe-mlyny
+composer install
+cp .env.example .env
+php artisan key:generate
+```
+
+## 🛠️ Konfigurácia databázy
+
+Uprav `.env` súbor:
+
+```env
+DB_DATABASE=your_database
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+```
+
+## 🗃️ Migrácie a seedery
+
+```bash
+php artisan migrate --seed
+```
+
+## 🔗 Symlink pre obrázky
+
+```bash
+php artisan storage:link
+```
+
+## 🚀 Spustenie servera
+
+```bash
+php artisan serve
+```
+
+Otvor v prehliadači: `http://localhost:8000`
