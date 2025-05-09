@@ -9,6 +9,9 @@
     @endif
     <main>
         <section class="container py-5">
+            <a href="{{ route('admin.products.index') }}" class="btn btn-dark my-2">
+                Back
+            </a>
             <div class="col-lg-6 mb-4">
                 <label class="form-label fw-bold">Current Images</label>
                 <div class="d-flex flex-wrap gap-2">

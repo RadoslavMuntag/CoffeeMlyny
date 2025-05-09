@@ -3,6 +3,9 @@
 @section('content')
     <section class="album py-5">
         <div class="container">
+            <a href="{{ route('admin.dashboard') }}" class="btn btn-dark my-2">
+                Back
+            </a>
             <div class="row">
                 @include('partials.catalogue-filters')
                 <main class="col-md-9">

@@ -3,6 +3,9 @@
 @section('content')
     <main>
         <section class="container py-5">
+            <a href="{{ route('admin.products.index') }}" class="btn btn-dark my-2">
+                Back
+            </a>
             <form method="POST" action="{{ route('admin.products.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
@@ -40,7 +43,7 @@
                         </div>
 
                         <div class="mb-3">
-                        <label class="form-label fw-bold">Weight</label>
+                            <label class="form-label fw-bold">Weight</label>
                             <select name="weight" class="form-select" required>
                                 <option value="250">250</option>
                                 <option value="500">500</option>

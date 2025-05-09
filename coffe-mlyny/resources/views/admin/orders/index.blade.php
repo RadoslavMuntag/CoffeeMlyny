@@ -2,6 +2,9 @@
 
 @section('content')
     <main class="container py-5">
+        <a href="{{ route('admin.dashboard') }}" class="btn btn-dark my-2">
+            Back
+        </a>
         <div class="card p-4 shadow">
             <h2 class="mb-3">Orders</h2>
 

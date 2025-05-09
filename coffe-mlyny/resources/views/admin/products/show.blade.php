@@ -4,6 +4,9 @@
 
     <main>
         <section class="container py-5">
+            <a href="{{ route('admin.products.index') }}" class="btn btn-dark my-2">
+                Back
+            </a>
             <div class="row">
                 <div class="col-lg-6">
                     <div>
