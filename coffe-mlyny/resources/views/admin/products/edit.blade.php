@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-@if(session('success'))
-    <div class="alert alert-success">{{ session('success') }}</div>
-@endif
-@if(session('error'))
-    <div class="alert alert-danger">{{ session('error') }}</div>
-@endif
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+    @if(session('error'))
+        <div class="alert alert-danger">{{ session('error') }}</div>
+    @endif
     <main>
         <section class="container py-5">
             <div class="col-lg-6 mb-4">
@@ -88,6 +88,17 @@
                                         </option>
                                     @endforeach
                                 </select>
+                            </div>
+
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label fw-bold">Featured</label>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" name="featured" role="switch"
+                                        id="featured" value="1" {{ $product->featured ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="featured">
+                                        {{ $product->featured ? 'Featured' : 'Not Featured' }}
+                                    </label>
+                                </div>
                             </div>
 
                             <div class="d-flex justify-content-end mt-4">

@@ -35,7 +35,8 @@ class Product extends Model
         'weight',
         'stock',
         'slug',
-        'product_category_id'
+        'product_category_id',
+        'featured',
     ];
 
     public function category()

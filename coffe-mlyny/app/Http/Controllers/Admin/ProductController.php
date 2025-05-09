@@ -136,11 +136,11 @@ class ProductController extends Controller
 
     public function update(Request $request, Product $product)
     {
-
         if ($request->has('images') && count($request->file('images')) == 0 && $product->images->isEmpty()) {
             return back()->with('error', 'Product must have at least one image.');
         }
 
+        // Pridanie validácie pre 'featured'
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'variant' => 'nullable|string|max:255',
@@ -150,9 +150,19 @@ class ProductController extends Controller
             'stock' => 'required|integer|min:0',
             'product_category_id' => 'required|exists:product_categories,id',
             'images.*' => 'nullable|image|max:5120',
+            'featured' => 'nullable|boolean',
         ]);
 
-        $product->update($validated);
+        $product->update([
+            'name' => $validated['name'],
+            'variant' => $validated['variant'] ?? $product->variant,
+            'description' => $validated['description'] ?? $product->description,
+            'price' => $validated['price'],
+            'weight' => $validated['weight'],
+            'stock' => $validated['stock'],
+            'product_category_id' => $validated['product_category_id'],
+            'featured' => $request->has('featured') ? true : false,
+        ]);
 
         if ($request->hasFile('images')) {
             $categoryFolder = Str::slug($product->productCategory->name);
@@ -167,8 +177,8 @@ class ProductController extends Controller
         }
 
         return redirect()->route('admin.products.show', $product->slug)->with('success', 'Product updated successfully.');
-
     }
+
 
 
     public function destroy($id)
