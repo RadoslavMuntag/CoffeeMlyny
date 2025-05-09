@@ -46,4 +46,4 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/users', [UserController::class, 'index'])->name('users');
     Route::put('/users/{user}/toggle-role', [UserController::class, 'toggleRole'])->name('users.toggleRole');
 });
-
+Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
