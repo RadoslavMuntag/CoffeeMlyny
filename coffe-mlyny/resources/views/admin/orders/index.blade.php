@@ -11,37 +11,38 @@
             @if(session('success'))
                 <div class="alert alert-success">{{ session('success') }}</div>
             @endif
-
-            <table class="table table-bordered table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th>#</th>
-                        <th>User</th>
-                        <th>Status</th>
-                        <th>Total (€)</th>
-                        <th>Created</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($orders as $order)
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="table-dark">
                         <tr>
-                            <td>{{ $order->id }}</td>
-                            <td>{{ $order->user->name ?? 'Guest' }}</td>
-                            <td>{{ ucfirst($order->status) }}</td>
-                            <td>{{ number_format($order->total, 2) }}</td>
-                            <td>{{ $order->created_at->format('d.m.Y H:i') }}</td>
-                            <td>
-                                <a href="{{ route('admin.orders.show', $order->id) }}" class="btn btn-sm btn-info">Detail</a>
-                            </td>
+                            <th>#</th>
+                            <th>User</th>
+                            <th>Status</th>
+                            <th>Total (€)</th>
+                            <th>Created</th>
+                            <th>Action</th>
                         </tr>
-                    @empty
-                        <tr>
-                            <td colspan="6">No orders found.</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @forelse($orders as $order)
+                            <tr>
+                                <td>{{ $order->id }}</td>
+                                <td>{{ $order->user->name ?? 'Guest' }}</td>
+                                <td>{{ ucfirst($order->status) }}</td>
+                                <td>{{ number_format($order->total, 2) }}</td>
+                                <td>{{ $order->created_at->format('d.m.Y H:i') }}</td>
+                                <td>
+                                    <a href="{{ route('admin.orders.show', $order->id) }}" class="btn btn-sm btn-info">Detail</a>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="6">No orders found.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
     </main>
 @endsection
