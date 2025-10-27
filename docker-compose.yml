@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ./coffe-mlyny
+      dockerfile: Dockerfile
+    container_name: coffee_mlyny_app
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - DB_CONNECTION=pgsql
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_DATABASE=coffee_mlyny
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=admin
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - APP_URL=http://localhost:8000
+    depends_on:
+      - db
+    networks:
+      - coffee_network
+
+  db:
+    image: postgres:16-alpine
+    container_name: coffee_mlyny_db
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=coffee_mlyny
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - coffee_network
+
+networks:
+  coffee_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
