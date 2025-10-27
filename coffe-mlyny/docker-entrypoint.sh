@@ -3,6 +3,23 @@ set -e
 
 echo "Starting Laravel application..."
 
+# Install dependencies if not present
+if [ ! -d "vendor" ]; then
+    echo "Installing Composer dependencies..."
+    composer install --optimize-autoloader --no-interaction
+fi
+
+if [ ! -d "node_modules" ]; then
+    echo "Installing NPM dependencies..."
+    npm install
+fi
+
+# Build assets if not built
+if [ ! -d "public/build" ]; then
+    echo "Building frontend assets..."
+    npm run build
+fi
+
 # Wait for PostgreSQL to be ready
 echo "Waiting for PostgreSQL..."
 until pg_isready -h ${DB_HOST} -p ${DB_PORT} -U ${DB_USERNAME}; do
@@ -12,14 +29,18 @@ done
 
 echo "PostgreSQL is up!"
 
-# Check if .env exists, if not copy from .env.example
+# Check if .env exists, if not copy from .env.docker (for Docker) or .env.example
 if [ ! -f .env ]; then
     echo "Creating .env file..."
-    cp .env.example .env
+    if [ -f .env.docker ]; then
+        cp .env.docker .env
+    else
+        cp .env.example .env
+    fi
 fi
 
 # Generate application key if not set
-if grep -q "APP_KEY=$" .env || grep -q "APP_KEY=base64:VtVzvwJDLSgqX5FJ7fpEMk30lERb4J1r5h5qY0ClSWA=" .env; then
+if grep -q "APP_KEY=$" .env; then
     echo "Generating application key..."
     php artisan key:generate --force
 fi

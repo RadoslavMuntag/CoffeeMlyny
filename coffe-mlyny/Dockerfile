@@ -1,5 +1,5 @@
-# Multi-stage build for Laravel application
-FROM php:8.2-fpm as base
+# Dockerfile for CoffeeMlyny Laravel Application
+FROM php:8.2-fpm
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -27,30 +27,19 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Set working directory
 WORKDIR /var/www/html
 
-# Copy composer files
-COPY composer.json composer.lock ./
-
-# Install PHP dependencies
-RUN composer install --no-dev --optimize-autoloader --no-interaction --no-progress --prefer-dist
-
-# Copy package files
-COPY package.json package-lock.json* ./
-
-# Install Node dependencies
-RUN npm install
-
 # Copy application files
 COPY . .
 
-# Build frontend assets
-RUN npm run build
+# Install dependencies if they don't exist (for production builds)
+RUN if [ ! -d "vendor" ]; then composer install --no-dev --optimize-autoloader --no-interaction; fi
+RUN if [ ! -d "node_modules" ]; then npm install; fi
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html/storage \
     && chmod -R 755 /var/www/html/bootstrap/cache
 
-# Create startup script
+# Copy and set up entrypoint script
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 

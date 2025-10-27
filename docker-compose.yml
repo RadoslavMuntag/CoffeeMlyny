@@ -19,10 +19,6 @@ services:
       - APP_ENV=local
       - APP_DEBUG=true
       - APP_URL=http://localhost:8000
-    volumes:
-      - ./coffe-mlyny:/var/www/html
-      - /var/www/html/vendor
-      - /var/www/html/node_modules
     depends_on:
       - db
     networks:
